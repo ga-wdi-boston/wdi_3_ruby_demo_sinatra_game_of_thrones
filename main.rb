@@ -1,4 +1,5 @@
 require 'pg'
+require 'pry'
 require 'sinatra'
 require 'sinatra/reloader' if development?
 
@@ -22,13 +23,40 @@ get '/houses' do
   erb :houses
 end
 
-post '/houses' do
+get '/houses/new' do
+  erb :new_house
+end
+
+post '/houses/new' do
   name = params[:name]
   sigil = params[:sigil]
   motto = params[:motto]
-  sql = "INSERT INTO houses (name, sigil, motto) VALUES ('Stark', 'http://fc07.deviantart.net/fs70/f/2012/141/d/3/game_of_thrones_house_stark_sigil_render_by_titch_ix-d50m12c.png', 'Winter is Coming');"
+  sql = "INSERT INTO houses (name, sigil, motto) VALUES ('#{name}','#{sigil}','#{motto}');"
   run_sql(sql)
   redirect to '/houses'
+end
+
+get '/people/new' do
+  sql = "SELECT id, name FROM houses"
+  @houses = run_sql(sql)
+  erb :new_person
+end
+
+post '/people/new' do
+  name = params[:name]
+  weapon = params[:weapon]
+  age = params[:age]
+  living = params[:living]
+  if living == 'on'
+    living = true
+  else
+    living = false
+  end
+  image = params[:image]
+  house_id = params[:house_id]
+  sql = "INSERT INTO people (name, weapon, age, image, house_id) VALUES ('#{name}', '#{weapon}', #{age}, '#{image}', #{house_id})"
+  run_sql(sql)
+  redirect to '/people'
 end
 
 get '/people' do
