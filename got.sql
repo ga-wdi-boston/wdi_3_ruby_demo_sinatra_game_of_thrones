@@ -24,4 +24,4 @@ CREATE TABLE people
 INSERT INTO houses (name, sigil, motto) VALUES ('Stark', 'http://fc07.deviantart.net/fs70/f/2012/141/d/3/game_of_thrones_house_stark_sigil_render_by_titch_ix-d50m12c.png', 'Winter is Coming');
 
 -- add 5 people
--- INSERT INTO people (name, weapon, age, image, house_id)
+INSERT INTO people (name, weapon, age, image, house_id) VALUES ('Ned Stark', 'Ice', 38, 'empty', 1)

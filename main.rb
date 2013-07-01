@@ -23,6 +23,8 @@ get '/houses' do
 end
 
 get '/people' do
+  sql = "SELECT * FROM PEOPLE"
+  @people = run_sql(sql)
   erb :people
 end
 
